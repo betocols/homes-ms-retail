@@ -1,6 +1,6 @@
 package com.tenx.ms.retail.store.service;
 
-import com.tenx.ms.retail.store.StoreConverter;
+import com.tenx.ms.retail.store.utils.StoreConverter;
 import com.tenx.ms.retail.store.domain.StoreEntity;
 import com.tenx.ms.retail.store.repository.StoreRepository;
 import com.tenx.ms.retail.store.rest.dto.Store;
@@ -26,15 +26,21 @@ public class StoreService {
         return storeRepository.findAll().stream().map(entity -> storeConverter.convertToStoreDTO(entity)).collect(Collectors.toList());
     }
 
-    public Optional<Store> getStoreById(Long storeId) {
-        return storeRepository.findOneByStoreId(storeId).map(store -> storeConverter.convertToStoreDTO(store));
+    public Store getStoreById(Long storeId) {
+        Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
+        if (storeE.isPresent()) {
+            return storeConverter.convertToStoreDTO(storeE.get());
+        }  else {
+            throw new NoSuchElementException("Store was not found.");
+        }
+
     }
 
     @Transactional
     public Long create(Store store) {
-        StoreEntity storeEntity = storeConverter.convertToStoreEntity(store);
-        storeEntity = storeRepository.save(storeEntity);
+        StoreEntity storeE = storeConverter.convertToStoreEntity(store);
+        storeE = storeRepository.save(storeE);
 
-        return storeEntity.getStoreId();
+        return storeE.getStoreId();
     }
 }

@@ -27,6 +27,11 @@ public class StoreEntity {
         this.name = name;
     }
 
+    public StoreEntity(Long storeId, String name) {
+        this.storeId = storeId;
+        this.name = name;
+    }
+
     public Long getStoreId() {
         return storeId;
     }

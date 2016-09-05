@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @Api(value = "store", description = "Store API")
 @RestController("storeControllerV1")
@@ -43,13 +42,13 @@ public class StoreController {
     @ApiResponses(
         value = {
             @ApiResponse(code = 200, message = "Successful retrieval of the store"),
-            @ApiResponse(code = 404, message = "Store can't be found"),
+            @ApiResponse(code = 404, message = "Store couldn't be found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
         }
     )
     @RequestMapping(value = {"/{id:\\d+}"}, method = RequestMethod.GET)
     public Store getStoreById(@ApiParam(name = "storeId", value = "The store id") @PathVariable() Long id) {
-        return storeService.getStoreById(id).get();
+        return storeService.getStoreById(id);
     }
 
     @ApiOperation(value = "Creates a new store")

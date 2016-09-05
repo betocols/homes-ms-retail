@@ -13,7 +13,8 @@ public class Store {
     public Store() {
     }
 
-    public Store(String name) {
+    public Store(Long storeId, String name) {
+        this.storeId = storeId;
         this.name = name;
     }
 
