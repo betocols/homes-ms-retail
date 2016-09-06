@@ -25,18 +25,6 @@ public class Product {
     @ApiModelProperty(value = "Product price", required = true)
     private BigDecimal price;
 
-    public Product() {
-    }
-
-    public Product(Long productId, Long storeId, String name, String description, String sku, BigDecimal price) {
-        this.productId = productId;
-        this.storeId = storeId;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.price = price;
-    }
-
     public Long getProductId() {
         return productId;
     }

@@ -45,26 +45,6 @@ public class ProductEntity {
     @Column(name = "price", precision = 20, scale = 2, nullable = false)
     private BigDecimal price;
 
-    public ProductEntity() {
-    }
-
-    public ProductEntity(StoreEntity store, String name, String description, String sku, BigDecimal price) {
-        this.store = store;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.price = price;
-    }
-
-    public ProductEntity(Long productId, StoreEntity store, String name, String description, String sku, BigDecimal price) {
-        this.productId = productId;
-        this.store = store;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.price = price;
-    }
-
     public void setProductId(Long productId) {
         this.productId = productId;
     }

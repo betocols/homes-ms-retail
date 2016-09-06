@@ -5,15 +5,36 @@ import com.tenx.ms.retail.product.rest.dto.Product;
 import com.tenx.ms.retail.store.domain.StoreEntity;
 import org.springframework.stereotype.Component;
 
-@Component
-public class ProductConverter {
-    public ProductEntity convertToProductEntity(Product product, StoreEntity store) {
-        return new ProductEntity(product.getProductId(), store, product.getName(), product.getDescription(),
-                                 product.getSku(), product.getPrice());
-    }
+import java.util.function.Function;
 
-    public Product convertToProductDTO(ProductEntity productEntity) {
-        return new Product(productEntity.getProductId(), productEntity.getStore().getStoreId(), productEntity.getName(),
-                           productEntity.getDescription(), productEntity.getSku(), productEntity.getPrice());
-    }
+@Component
+public final class ProductConverter {
+    public static Function<Product, ProductEntity> convertToProductEntity = (Product product) -> {
+        ProductEntity productE = new ProductEntity();
+        StoreEntity storeE = new StoreEntity();
+
+        storeE.setStoreId(product.getStoreId());
+
+        productE.setProductId(product.getProductId());
+        productE.setStore(storeE);
+        productE.setName(product.getName());
+        productE.setDescription(product.getDescription());
+        productE.setSku(product.getSku());
+        productE.setPrice(product.getPrice());
+
+        return productE;
+    };
+
+    public static Function<ProductEntity, Product> convertToProductDTO = (ProductEntity productE) -> {
+        Product product = new Product();
+
+        product.setProductId(productE.getProductId());
+        product.setStoreId(productE.getStore().getStoreId());
+        product.setName(productE.getName());
+        product.setDescription(productE.getDescription());
+        product.setSku(productE.getSku());
+        product.setPrice(productE.getPrice());
+
+        return product;
+    };
 }

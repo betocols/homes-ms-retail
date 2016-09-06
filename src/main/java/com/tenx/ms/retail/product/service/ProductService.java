@@ -24,13 +24,10 @@ public class ProductService {
     @Autowired
     private StoreRepository storeRepository;
 
-    @Autowired
-    private ProductConverter productConverter;
-
     public List<Product> getAllProductsInStore(Long storeId) {
         Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
         if (storeE.isPresent()) {
-            return productRepository.findByStore(storeE.get()).stream().map(entity -> productConverter.convertToProductDTO(entity)).collect(Collectors.toList());
+            return productRepository.findByStore(storeE.get()).stream().map(entity -> ProductConverter.convertToProductDTO.apply(entity)).collect(Collectors.toList());
         }   else {
             throw new NoSuchElementException("Store was not found.");
         }
@@ -44,7 +41,7 @@ public class ProductService {
 
         Optional<ProductEntity> productE = productRepository.findOneByProductIdAndStore(productId, storeE.get());
         if (productE.isPresent()) {
-            return productConverter.convertToProductDTO(productE.get());
+            return ProductConverter.convertToProductDTO.apply(productE.get());
         } else {
             throw new NoSuchElementException("Product was not found in store.");
         }
@@ -54,7 +51,8 @@ public class ProductService {
     public Long createProductInStore(Product product, Long storeId) {
         Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
         if (storeE.isPresent()) {
-            ProductEntity productE = productConverter.convertToProductEntity(product, storeE.get());
+            product.setStoreId(storeE.get().getStoreId());
+            ProductEntity productE = ProductConverter.convertToProductEntity.apply(product);
             productE = productRepository.save(productE);
             return productE.getProductId();
         } else {

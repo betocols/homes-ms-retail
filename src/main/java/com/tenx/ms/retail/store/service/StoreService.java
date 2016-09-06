@@ -19,17 +19,14 @@ public class StoreService {
     @Autowired
     private StoreRepository storeRepository;
 
-    @Autowired
-    private StoreConverter storeConverter;
-
     public List<Store> getStores() {
-        return storeRepository.findAll().stream().map(entity -> storeConverter.convertToStoreDTO(entity)).collect(Collectors.toList());
+        return storeRepository.findAll().stream().map(entity -> StoreConverter.convertToStoreDTO.apply(entity)).collect(Collectors.toList());
     }
 
     public Store getStoreById(Long storeId) {
         Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
         if (storeE.isPresent()) {
-            return storeConverter.convertToStoreDTO(storeE.get());
+            return StoreConverter.convertToStoreDTO.apply(storeE.get());
         }  else {
             throw new NoSuchElementException("Store not found");
         }
@@ -38,7 +35,7 @@ public class StoreService {
 
     @Transactional
     public Long create(Store store) {
-        StoreEntity storeE = storeConverter.convertToStoreEntity(store);
+        StoreEntity storeE = StoreConverter.convertToStoreEntity.apply(store);
         storeE = storeRepository.save(storeE);
 
         return storeE.getStoreId();

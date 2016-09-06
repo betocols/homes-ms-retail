@@ -4,13 +4,25 @@ import com.tenx.ms.retail.store.domain.StoreEntity;
 import com.tenx.ms.retail.store.rest.dto.Store;
 import org.springframework.stereotype.Component;
 
-@Component
-public class StoreConverter {
-    public StoreEntity convertToStoreEntity(Store store) {
-        return new StoreEntity(store.getStoreId(), store.getName());
-    }
+import java.util.function.Function;
 
-    public Store convertToStoreDTO(StoreEntity storeEntity) {
-        return new Store(storeEntity.getStoreId(), storeEntity.getName());
-    }
+@Component
+public final class StoreConverter {
+    public static Function<Store, StoreEntity> convertToStoreEntity = (Store store) -> {
+        StoreEntity storeE = new StoreEntity();
+
+        storeE.setStoreId(store.getStoreId());
+        storeE.setName(store.getName());
+
+        return storeE;
+    };
+
+    public static Function<StoreEntity, Store> convertToStoreDTO = (StoreEntity storeE) -> {
+        Store store = new Store();
+
+        store.setStoreId(storeE.getStoreId());
+        store.setName(storeE.getName());
+
+        return store;
+    };
 }
