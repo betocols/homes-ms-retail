@@ -14,3 +14,12 @@ CREATE TABLE product (
   FOREIGN KEY (store_id) REFERENCES store (store_id),
   PRIMARY KEY (product_id)
 );
+
+CREATE TABLE stock (
+  product_id    BIGINT          NOT NULL COMMENT 'Id of the product',
+  store_id      BIGINT          NOT NULL COMMENT 'Id of the store',
+  count         INTEGER         NOT NULL COMMENT 'Amount of product in store',
+  PRIMARY KEY (product_id),
+  FOREIGN KEY (store_id) REFERENCES store (store_id),
+  FOREIGN KEY (product_id) REFERENCES product (product_id)
+);

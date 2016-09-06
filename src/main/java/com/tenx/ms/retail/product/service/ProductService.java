@@ -5,7 +5,7 @@ import com.tenx.ms.retail.product.repository.ProductRepository;
 import com.tenx.ms.retail.product.rest.dto.Product;
 import com.tenx.ms.retail.store.domain.StoreEntity;
 import com.tenx.ms.retail.store.repository.StoreRepository;
-import com.tenx.ms.retail.utils.ProductConverter;
+import com.tenx.ms.retail.product.utils.ProductConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

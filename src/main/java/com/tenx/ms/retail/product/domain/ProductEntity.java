@@ -1,5 +1,6 @@
 package com.tenx.ms.retail.product.domain;
 
+import com.tenx.ms.retail.stock.domain.StockEntity;
 import com.tenx.ms.retail.store.domain.StoreEntity;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,6 +26,10 @@ public class ProductEntity {
     @ManyToOne
     @JoinColumn(name="store_id")
     private StoreEntity store;
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private StockEntity stock;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -69,6 +75,14 @@ public class ProductEntity {
 
     public void setStore(StoreEntity store) {
         this.store = store;
+    }
+
+    public StockEntity getStock() {
+        return stock;
+    }
+
+    public void setStock(StockEntity stock) {
+        this.stock = stock;
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package com.tenx.ms.retail.utils;
+package com.tenx.ms.retail.product.utils;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.rest.dto.Product;
