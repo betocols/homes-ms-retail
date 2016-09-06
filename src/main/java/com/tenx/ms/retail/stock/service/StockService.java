@@ -33,12 +33,12 @@ public class StockService {
 
         Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
         if (!storeE.isPresent()) {
-            throw new NoSuchElementException("Store was not found");
+            throw new NoSuchElementException(String.format("Store with id (%d) was not found", storeId));
         }
 
         Optional<ProductEntity> productE = productRepository.findOneByProductIdAndStore(productId, storeE.get());
         if (!productE.isPresent()) {
-            throw new NoSuchElementException("Product was not found");
+            throw new NoSuchElementException(String.format("Product with id (%d) was not found", productId));
         }
 
         stockRepository.save(StockConverter.convertToStockEntity.apply(stock));

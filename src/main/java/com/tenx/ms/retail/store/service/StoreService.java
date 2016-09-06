@@ -28,7 +28,7 @@ public class StoreService {
         if (storeE.isPresent()) {
             return StoreConverter.convertToStoreDTO.apply(storeE.get());
         }  else {
-            throw new NoSuchElementException("Store not found");
+            throw new NoSuchElementException(String.format("Store with id (%d) was not found", storeId));
         }
 
     }

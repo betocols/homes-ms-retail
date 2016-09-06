@@ -29,21 +29,21 @@ public class ProductService {
         if (storeE.isPresent()) {
             return productRepository.findByStore(storeE.get()).stream().map(entity -> ProductConverter.convertToProductDTO.apply(entity)).collect(Collectors.toList());
         }   else {
-            throw new NoSuchElementException("Store was not found.");
+            throw new NoSuchElementException(String.format("Store with id (%d) was not found", storeId));
         }
     }
 
     public Product getProductInStore(Long productId, Long storeId) {
         Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
         if (!storeE.isPresent()) {
-            throw new NoSuchElementException("Store was not found.");
+            throw new NoSuchElementException(String.format("Store with id (%d) was not found", storeId));
         }
 
         Optional<ProductEntity> productE = productRepository.findOneByProductIdAndStore(productId, storeE.get());
         if (productE.isPresent()) {
             return ProductConverter.convertToProductDTO.apply(productE.get());
         } else {
-            throw new NoSuchElementException("Product was not found in store.");
+            throw new NoSuchElementException(String.format("Product with id (%d) was not found", productId));
         }
     }
 
@@ -56,7 +56,7 @@ public class ProductService {
             productE = productRepository.save(productE);
             return productE.getProductId();
         } else {
-            throw new NoSuchElementException("Store was not found.");
+            throw new NoSuchElementException(String.format("Store with id (%d) was not found", storeId));
         }
     }
 }

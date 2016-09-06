@@ -3,6 +3,7 @@ package com.tenx.ms.retail.product.rest.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @ApiModel("Product")
@@ -13,16 +14,20 @@ public class Product {
     @ApiModelProperty(value = "Store id", readOnly = true)
     private Long storeId;
 
-    @ApiModelProperty(value = "Product name", required = true)
+    @ApiModelProperty(value = "Product name")
+    @NotNull
     private String name;
 
-    @ApiModelProperty(value = "Product description", required = true)
+    @ApiModelProperty(value = "Product description")
+    @NotNull
     private String description;
 
-    @ApiModelProperty(value = "Product sku", required = true)
+    @ApiModelProperty(value = "Product sku")
+    @NotNull
     private String sku;
 
-    @ApiModelProperty(value = "Product price", required = true)
+    @ApiModelProperty(value = "Product price")
+    @NotNull
     private BigDecimal price;
 
     public Long getProductId() {

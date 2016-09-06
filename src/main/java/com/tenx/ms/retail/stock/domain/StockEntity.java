@@ -10,16 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "stock")
 public class StockEntity {
     @Id
-    @Column(name = "product_id", insertable = false, updatable = false)
+    @Column(name = "product_id", insertable = false, updatable = false, nullable = false)
     private Long productId;
 
-    @NotNull
     @OneToOne(targetEntity = ProductEntity.class)
     @JoinColumn(name = "product_id")
     private ProductEntity product;
@@ -27,7 +25,6 @@ public class StockEntity {
     @Column(name = "store_id", insertable = false, updatable = false)
     private Long storeId;
 
-    @NotNull
     @ManyToOne(targetEntity = StoreEntity.class)
     @JoinColumn(name = "store_id")
     private StoreEntity store;
