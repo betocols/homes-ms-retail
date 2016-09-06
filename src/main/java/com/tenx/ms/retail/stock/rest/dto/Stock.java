@@ -17,12 +17,6 @@ public class Stock {
     @Min(0)
     private Long count;
 
-    public Stock(Long productId, Long storeId, Long count) {
-        this.productId = productId;
-        this.storeId = storeId;
-        this.count = count;
-    }
-
     public Long getProductId() {
         return productId;
     }

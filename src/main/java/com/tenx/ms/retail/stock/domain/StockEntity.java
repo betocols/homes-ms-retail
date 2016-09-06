@@ -16,13 +16,16 @@ import javax.validation.constraints.NotNull;
 @Table(name = "stock")
 public class StockEntity {
     @Id
-    @Column(name = "product_id")
+    @Column(name = "product_id", insertable = false, updatable = false)
     private Long productId;
 
     @NotNull
     @OneToOne(targetEntity = ProductEntity.class)
     @JoinColumn(name = "product_id")
     private ProductEntity product;
+
+    @Column(name = "store_id", insertable = false, updatable = false)
+    private Long storeId;
 
     @NotNull
     @ManyToOne(targetEntity = StoreEntity.class)
@@ -31,16 +34,6 @@ public class StockEntity {
 
     @Column(name = "count", nullable = false)
     private Long count;
-
-    public StockEntity() {
-    }
-
-    public StockEntity(Long productId, ProductEntity product, StoreEntity store, Long count) {
-        this.productId = productId;
-        this.product = product;
-        this.store = store;
-        this.count = count;
-    }
 
     public Long getProductId() {
         return productId;
@@ -56,6 +49,14 @@ public class StockEntity {
 
     public void setProduct(ProductEntity product) {
         this.product = product;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public StoreEntity getStore() {

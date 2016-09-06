@@ -32,6 +32,10 @@ public class StoreEntity {
         this.name = name;
     }
 
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
     public Long getStoreId() {
         return storeId;
     }

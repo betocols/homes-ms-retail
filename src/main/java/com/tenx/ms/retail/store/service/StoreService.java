@@ -31,7 +31,7 @@ public class StoreService {
         if (storeE.isPresent()) {
             return storeConverter.convertToStoreDTO(storeE.get());
         }  else {
-            throw new NoSuchElementException("Store was not found.");
+            throw new NoSuchElementException("Store not found");
         }
 
     }

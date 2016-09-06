@@ -2,7 +2,6 @@ package com.tenx.ms.retail.stock.service;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.repository.ProductRepository;
-import com.tenx.ms.retail.stock.domain.StockEntity;
 import com.tenx.ms.retail.stock.repository.StockRepository;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.retail.stock.utils.StockConverter;
@@ -27,24 +26,21 @@ public class StockService {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private StockConverter stockConverter;
-
     @Transactional
     public void upsertProductStock(Stock stock) {
         Long storeId = stock.getStoreId();
         Long productId = stock.getProductId();
-        Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
-        Optional<ProductEntity> productE = productRepository.findOneByProductIdAndStoreId(productId, storeId);
 
+        Optional<StoreEntity> storeE = storeRepository.findOneByStoreId(storeId);
         if (!storeE.isPresent()) {
             throw new NoSuchElementException("Store was not found");
         }
 
+        Optional<ProductEntity> productE = productRepository.findOneByProductIdAndStore(productId, storeE.get());
         if (!productE.isPresent()) {
             throw new NoSuchElementException("Product was not found");
         }
 
-        stockRepository.save(stockConverter.convertToStockEntity(stock, productE.get(), storeE.get()));
+        stockRepository.save(StockConverter.convertToStockEntity.apply(stock));
     }
 }

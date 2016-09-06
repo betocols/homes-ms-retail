@@ -65,6 +65,10 @@ public class ProductEntity {
         this.price = price;
     }
 
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
     public Long getProductId() {
         return productId;
     }
