@@ -2,6 +2,7 @@ package com.tenx.ms.retail.stock.service;
 
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.repository.ProductRepository;
+import com.tenx.ms.retail.stock.domain.StockEntity;
 import com.tenx.ms.retail.stock.repository.StockRepository;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
 import com.tenx.ms.retail.stock.utils.StockConverter;
@@ -25,6 +26,16 @@ public class StockService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    public Stock getStockByStockAndProductId(Long storeId, Long productId) {
+        Optional<StockEntity> stockE = stockRepository.findOneByStoreIdAndProductId(storeId, productId);
+        if (stockE.isPresent()) {
+            return StockConverter.convertToStockDTO.apply(stockE.get());
+        } else {
+            throw new NoSuchElementException(String.format("Stock with store id (%d) and product id (%d) was not found", storeId, productId));
+
+        }
+    }
 
     @Transactional
     public void upsertProductStock(Stock stock) {

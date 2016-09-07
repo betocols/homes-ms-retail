@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,12 +54,12 @@ public class StoreController {
 
     @ApiOperation(value = "Creates a new store")
     @ApiResponses( value = {
-        @ApiResponse(code = 201, message = "Store successfully created"),
+        @ApiResponse(code = 200, message = "Store successfully created"),
         @ApiResponse(code = 412, message = "Validation failure"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @RequestMapping(method = RequestMethod.POST)
-    public ResourceCreated<Long> create(@RequestBody Store store){
+    public ResourceCreated<Long> create(@Validated @RequestBody Store store){
         Long storeId = storeService.create(store);
         return new ResourceCreated<>(storeId);
     }

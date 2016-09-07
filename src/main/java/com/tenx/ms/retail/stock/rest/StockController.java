@@ -25,14 +25,27 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
+    @ApiOperation(value = "Create or update an stock")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful retrieval of product's stock"),
+        @ApiResponse(code = 404, message = "Stock not found"),
+        @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @RequestMapping(value = "/{storeId:\\d+}/{productId:\\d+}", method = RequestMethod.GET)
+    public Stock getStockByStockAndProductId(
+        @PathVariable("storeId") Long storeId,
+        @PathVariable("productId") Long productId) {
+        return stockService.getStockByStockAndProductId(storeId, productId);
+    }
+
     @ApiOperation(value = "Upserts the product's stock")
     @ApiResponses( value = {
-        @ApiResponse(code = 201, message = "Stock successfully updated"),
+        @ApiResponse(code = 200, message = "Stock successfully updated"),
         @ApiResponse(code = 412, message = "Validation failure"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @RequestMapping(value = {"/{storeId:\\d+}/{productId:\\d+}"}, method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void upsertProductStock(@PathVariable("storeId") Long storeId,
                                    @PathVariable("productId") Long productId,
                                    @Validated @RequestBody Stock stock) {

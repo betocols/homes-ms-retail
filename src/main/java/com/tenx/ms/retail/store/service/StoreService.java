@@ -30,7 +30,6 @@ public class StoreService {
         }  else {
             throw new NoSuchElementException(String.format("Store with id (%d) was not found", storeId));
         }
-
     }
 
     @Transactional

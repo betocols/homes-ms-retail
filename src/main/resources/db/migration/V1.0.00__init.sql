@@ -18,7 +18,7 @@ CREATE TABLE product (
 CREATE TABLE stock (
   product_id    BIGINT          NOT NULL COMMENT 'Id of the associated product',
   store_id      BIGINT          NOT NULL COMMENT 'Id of the associated store',
-  count         INTEGER         NOT NULL COMMENT 'Amount of product in store',
+  count         BIGINT          NOT NULL COMMENT 'Amount of product in store',
   PRIMARY KEY (product_id),
   FOREIGN KEY (store_id) REFERENCES store (store_id),
   FOREIGN KEY (product_id) REFERENCES product (product_id)
@@ -28,7 +28,7 @@ CREATE TABLE order_complete (
     order_id     BIGINT     NOT NULL AUTO_INCREMENT     COMMENT 'Id of the order',
     store_id     BIGINT     NOT NULL                    COMMENT 'If of the associated store',
     order_date   TIMESTAMP  DEFAULT CURRENT_TIMESTAMP   COMMENT 'Date of the order',
-    status       VARCHAR(10)                            COMMENT 'Status of the order',
+    status       INTEGER                                COMMENT 'Status of the order',
     first_name   VARCHAR(50)                            COMMENT 'First name of the buyer',
     last_name    VARCHAR(50)                            COMMENT 'Last name of the buyer',
     email        VARCHAR(255)                           COMMENT 'Email of the buyer',

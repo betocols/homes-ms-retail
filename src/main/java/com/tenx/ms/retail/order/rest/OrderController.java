@@ -9,13 +9,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(value = "order", description = "Order API")
@@ -27,16 +25,15 @@ public class OrderController {
 
     @ApiOperation(value = "Creates a new order for a store")
     @ApiResponses( value = {
-        @ApiResponse(code = 201, message = "Order successfully created"),
+        @ApiResponse(code = 200, message = "Order successfully created"),
         @ApiResponse(code = 412, message = "Validation failure"),
         @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @RequestMapping(value = {"/{storeId:\\d+}"}, method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResourceCreated<Order> createOrderForStore(@PathVariable Long storeId,
+    public Order createOrderForStore(@PathVariable Long storeId,
                                                       @Validated @RequestBody Order order) {
         order.setStoreId(storeId);
-        return new ResourceCreated<>(orderService.createOrderForStore(order));
+        return orderService.createOrderForStore(order);
 
     }
 }
