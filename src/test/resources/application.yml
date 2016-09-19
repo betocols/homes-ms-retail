@@ -1,0 +1,12 @@
+management.security.enabled: false
+security.basic.enabled: false
+
+spring:
+    cloud:
+        discovery:
+            enabled: false
+    jpa:
+        hibernate:
+            ddl-auto: validate
+server:
+   port: 0
