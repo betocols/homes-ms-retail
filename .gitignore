@@ -54,4 +54,5 @@ local.properties
 *.ids
 *.orig
 
-
+.editorconfig
+.github/PULL_REQUEST_TEMPLATE.md
