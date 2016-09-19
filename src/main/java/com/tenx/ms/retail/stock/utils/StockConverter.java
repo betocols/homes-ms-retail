@@ -16,7 +16,10 @@ public final class StockConverter {
         productEntity.setProductId(stock.getProductId());
         storeEntity.setStoreId(stock.getStoreId());
 
-        stockEntity.setProductId(stock.getProductId());
+        if (stock.getProductId() != null) {
+            stockEntity.setProductId(stock.getProductId());
+        }
+
         stockEntity.setProduct(productEntity);
         stockEntity.setStore(storeEntity);
         stockEntity.setCount(stock.getCount());

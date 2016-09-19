@@ -14,7 +14,10 @@ public final class OrderConverter {
 
         storeE.setStoreId(order.getStoreId());
 
-        orderE.setOrderId(order.getOrderId());
+        if (order.getOrderId() != null) {
+            orderE.setOrderId(order.getOrderId());
+        }
+
         orderE.setStore(storeE);
         orderE.setOrderDate(order.getOrderDate());
         orderE.setStatus(order.getStatus());

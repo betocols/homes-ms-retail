@@ -11,7 +11,9 @@ public final class StoreConverter {
     public static Function<Store, StoreEntity> convertToStoreEntity = (Store store) -> {
         StoreEntity storeE = new StoreEntity();
 
-        storeE.setStoreId(store.getStoreId());
+        if (store.getStoreId() != null) {
+            storeE.setStoreId(store.getStoreId());
+        }
         storeE.setName(store.getName());
 
         return storeE;

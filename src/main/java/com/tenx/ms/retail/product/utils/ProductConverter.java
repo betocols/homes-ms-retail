@@ -15,7 +15,10 @@ public final class ProductConverter {
 
         storeE.setStoreId(product.getStoreId());
 
-        productE.setProductId(product.getProductId());
+        if (product.getProductId() != null) {
+            productE.setProductId(product.getProductId());
+        }
+
         productE.setStore(storeE);
         productE.setName(product.getName());
         productE.setDescription(product.getDescription());

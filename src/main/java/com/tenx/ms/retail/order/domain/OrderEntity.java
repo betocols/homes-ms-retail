@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,18 +23,17 @@ import java.util.List;
 @Table(name = "order_complete")
 public class OrderEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id", nullable = false)
     private Long orderId;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", nullable = false)
     private StoreEntity store;
 
-    @Column(name="order_date")
+    @Column(name="order_date", nullable = false)
     private Timestamp orderDate;
 
-    @NotNull
     @Column(name = "status", nullable = false)
     private OrderStatusEnum status;
 
